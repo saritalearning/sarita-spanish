@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hola, I'm Sarita — Spanish Enrichment & Tutoring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal-dark: #0F6E56;
+    --teal: #1D9E75;
+    --teal-mid: #5DCAA5;
+    --teal-pale: #E1F5EE;
+    --blue: #2980B9;
+    --blue-pale: #E6F1FB;
+    --blue-dark: #1A4A7A;
+    --purple: #8E44AD;
+    --purple-pale: #EEEDFE;
+    --purple-dark: #5B2D8E;
+    --amber: #E88C2F;
+    --amber-pale: #FAEEDA;
+    --red: #E63946;
+    --cream: #FFFDF6;
+    --cream-dark: #F5F0E8;
+    --text: #2C2C2A;
+    --text-muted: #5F5E5A;
+    --text-light: #888780;
+    --border: rgba(0,0,0,0.08);
+
+    --sans: 'Jost', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── RAINBOW STRIPE ── */
+  .rainbow-stripe {
+    height: 5px;
+    background: linear-gradient(to right, #E63946, #E88C2F, #F4D03F, #2ECC71, #2980B9, #8E44AD);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 5px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: rgba(255,253,246,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 max(32px, 5vw);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-family: var(--sans);
+    font-size: 20px;
+    color: var(--teal-dark);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--teal-dark); }
+
+  .nav-cta {
+    background: var(--teal-dark);
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-size: 13px !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--teal) !important; color: white !important; }
+
+  /* ── PAGES ── */
+  .page { display: none; padding-top: 69px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ── SECTION UTIL ── */
+  section { padding: 80px max(32px, 5vw); }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .section-title {
+    font-family: var(--sans);
+    font-size: clamp(32px, 4vw, 48px);
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-title em { color: var(--teal-dark); font-style: normal; }
+  .section-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 26px;
+    border-radius: 28px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-family: var(--sans);
+  }
+  .btn-primary { background: var(--teal-dark); color: white; }
+  .btn-primary:hover { background: var(--teal); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--teal-dark); border: 1.5px solid var(--teal-dark); }
+  .btn-outline:hover { background: var(--teal-pale); }
+
+  /* ── CARDS ── */
+  .card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 28px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+  /* ════════════════════════════════════════
+     HOME PAGE
+  ════════════════════════════════════════ */
+
+  .hero {
+    padding: 80px max(32px, 5vw) 60px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal-pale);
+    color: var(--teal-dark);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .hero-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+  .hero h1 {
+    font-family: var(--sans);
+    font-size: clamp(40px, 5vw, 60px);
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .hero h1 em { color: var(--teal-dark); font-style: normal; display: block; }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 440px;
+  }
+
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .hero-cards { display: flex; flex-direction: column; gap: 14px; }
+
+  .hero-card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: transform 0.2s;
+  }
+  .hero-card:hover { transform: translateX(4px); }
+
+  .hero-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .hero-card-text h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .hero-card-text p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  /* Levels strip */
+  .levels-strip {
+    background: var(--cream-dark);
+    padding: 48px max(32px, 5vw);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 1200px;
+    margin: 24px auto 0;
+  }
+
+  .level-card {
+    border-radius: 14px;
+    padding: 22px 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .level-card:hover { transform: translateY(-2px); }
+  .level-num { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .level-name { font-family: var(--sans); font-size: 22px; margin-bottom: 6px; }
+  .level-desc { font-size: 12px; line-height: 1.5; }
+
+  /* Why section */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto 0;
+  }
+
+  .why-card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    padding: 24px;
+  }
+  .why-icon { font-size: 28px; margin-bottom: 12px; }
+  .why-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .why-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ════════════════════════════════════════
+     ABOUT PAGE
+  ════════════════════════════════════════ */
+
+  .about-hero {
+    padding: 80px max(32px, 5vw) 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-avatar {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 24px;
+    background: linear-gradient(135deg, var(--teal-pale) 0%, var(--teal-mid) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+    font-size: 80px;
+    color: var(--teal-dark);
+    max-width: 380px;
+  }
+
+  .about-content h1 {
+    font-family: var(--sans);
+    font-size: clamp(36px, 4vw, 52px);
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.15;
+  }
+  .about-content h1 em { color: var(--teal-dark); font-style: normal; }
+
+  .about-content p {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 18px;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 36px;
+    padding-top: 36px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat { text-align: center; }
+  .stat-num { font-family: var(--sans); font-size: 36px; color: var(--teal-dark); display: block; }
+  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  .philosophy {
+    background: var(--teal-dark);
+    padding: 64px max(32px, 5vw);
+  }
+  .philosophy h2 {
+    font-family: var(--sans);
+    font-size: 36px;
+    color: white;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .phil-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 24px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .phil-card h3 { font-size: 15px; font-weight: 600; color: white; margin-bottom: 8px; }
+  .phil-card p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+  /* ════════════════════════════════════════
+     PROGRAMS PAGE
+  ════════════════════════════════════════ */
+
+  .programs-hero {
+    padding: 80px max(32px, 5vw) 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .program-block {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 24px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .program-header {
+    padding: 32px 36px 28px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .program-badge {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .program-header h2 {
+    font-family: var(--sans);
+    font-size: 28px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .program-header p { font-size: 14px; color: var(--text-muted); line-height: 1.6; max-width: 560px; }
+
+  .program-body {
+    padding: 28px 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+
+  .program-col h3 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+  .program-col ul { list-style: none; }
+  .program-col ul li {
+    font-size: 14px;
+    color: var(--text);
+    padding: 5px 0;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .program-col ul li::before { content: "—"; position: absolute; left: 0; color: var(--teal-mid); }
+
+  /* Week grid */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    padding: 0 36px 28px;
+  }
+  .week-item {
+    background: var(--teal-pale);
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .week-item .wk { font-size: 10px; font-weight: 700; color: var(--teal-mid); text-transform: uppercase; letter-spacing: 0.06em; }
+  .week-item .theme { font-size: 11px; font-weight: 500; color: var(--teal-dark); margin-top: 4px; line-height: 1.3; }
+
+  /* ════════════════════════════════════════
+     TUTORING PAGE
+  ════════════════════════════════════════ */
+
+  .tutoring-hero {
+    padding: 80px max(32px, 5vw) 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 900px;
+    margin: 40px auto;
+  }
+
+  .pricing-card {
+    border-radius: 20px;
+    border: 2px solid var(--border);
+    padding: 36px;
+    background: white;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .pricing-card.featured { border-color: var(--teal-dark); }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--teal-dark);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 16px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .pricing-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px; }
+  .pricing-price { font-family: var(--sans); font-size: 42px; color: var(--teal-dark); margin-bottom: 4px; }
+  .pricing-price span { font-family: var(--sans); font-size: 16px; font-weight: 400; color: var(--text-muted); }
+  .pricing-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+  .pricing-features { list-style: none; }
+  .pricing-features li {
+    font-size: 14px;
+    color: var(--text);
+    padding: 7px 0;
+    padding-left: 22px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .pricing-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-weight: 600;
+  }
+  .pricing-features li:last-child { border-bottom: none; }
+  .pricing-btn { margin-top: 28px; width: 100%; text-align: center; }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0;
+    max-width: 900px;
+    margin: 40px auto 0;
+    position: relative;
+  }
+
+  .step {
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+  }
+  .step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    right: -1px;
+    width: 2px;
+    height: 32px;
+    background: var(--teal-pale);
+  }
+  .step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--teal-pale);
+    color: var(--teal-dark);
+    font-family: var(--sans);
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .step h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .step p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ════════════════════════════════════════
+     CONTACT PAGE
+  ════════════════════════════════════════ */
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px max(32px, 5vw);
+    align-items: start;
+  }
+
+  .contact-info h1 {
+    font-family: var(--sans);
+    font-size: clamp(36px, 4vw, 52px);
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .contact-info h1 em { color: var(--teal-dark); font-style: normal; }
+  .contact-info p { font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 32px; }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--text);
+  }
+  .contact-item:last-child { border-bottom: none; }
+  .contact-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--teal-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .contact-item a { color: var(--teal-dark); text-decoration: none; }
+  .contact-item a:hover { text-decoration: underline; }
+
+  .contact-form {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 36px;
+  }
+
+  .form-group { margin-bottom: 20px; }
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--text);
+    background: var(--cream);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--teal); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--teal-dark);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--teal); }
+
+  .survey-cta {
+    background: var(--teal-pale);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .survey-cta p { font-size: 13px; color: var(--teal-dark); line-height: 1.5; }
+  .survey-cta a { color: var(--teal-dark); font-weight: 600; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    padding: 40px max(32px, 5vw);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-brand { font-family: var(--sans); font-size: 20px; color: white; }
+  .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+  .footer-right { text-align: right; }
+  .footer-contact { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.8; }
+  .footer-legal { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 8px; }
+
+  /* ── FORM SUCCESS ── */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .form-success h3 { font-family: var(--sans); font-size: 28px; color: var(--teal-dark); margin-bottom: 8px; }
+  .form-success p { font-size: 14px; color: var(--text-muted); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-cards { display: none; }
+    .about-hero { grid-template-columns: 1fr; }
+    .about-avatar { max-width: 100%; height: 200px; }
+    .levels-grid { grid-template-columns: 1fr; }
+    .program-body { grid-template-columns: 1fr; }
+    .week-grid { grid-template-columns: repeat(4, 1fr); }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .about-stats { grid-template-columns: repeat(3, 1fr); }
+    .nav-links { display: none; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="rainbow-stripe"></div>
+
+<nav>
+  <a class="nav-brand" onclick="showPage('home')">Hola, I'm Sarita</a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('programs')" id="nav-programs">Programs</a></li>
+    <li><a onclick="showPage('tutoring')" id="nav-tutoring">Tutoring</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact" class="nav-cta">Get in touch</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════ HOME ════════════ -->
+<div id="page-home" class="page active">
+
+  <div class="hero" style="max-width:1200px;margin:0 auto">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-dot"></div>
+        Now enrolling · Summer 2026
+      </div>
+      <h1>Spanish that<br><em>sticks with kids.</em></h1>
+      <p class="hero-sub">Play-based, confidence-first Spanish enrichment for kids ages 4–10. Programs and private tutoring in Sonoma County and beyond.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="showPage('tutoring')">Work with me</button>
+        <button class="btn btn-outline" onclick="showPage('programs')">See programs</button>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="hero-card">
+        <div class="hero-card-icon" style="background:var(--teal-pale)">🌱</div>
+        <div class="hero-card-text">
+          <h3>After-School Enrichment</h3>
+          <p>7-week group programs for TK–3rd grade. Play-based, themed, and take-home crafts every week.</p>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon" style="background:var(--blue-pale)">✨</div>
+        <div class="hero-card-text">
+          <h3>Private Tutoring</h3>
+          <p>1-on-1 sessions tailored to your child. From $60/session. In-person or virtual.</p>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon" style="background:var(--amber-pale)">👥</div>
+        <div class="hero-card-text">
+          <h3>Small Group Sessions</h3>
+          <p>2–4 students. Social, affordable, and great for friends or siblings. From $35/student.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="levels-strip">
+    <div style="max-width:1200px;margin:0 auto">
+      <span class="section-label" style="text-align:center;display:block">Three learning levels</span>
+      <p style="text-align:center;color:var(--text-muted);font-size:15px;max-width:500px;margin:0 auto">Every student starts somewhere on the map. Placement is skill-based, not age-based.</p>
+      <div class="levels-grid">
+        <div class="level-card" style="background:var(--teal-pale)">
+          <div class="level-num" style="color:var(--teal)">Level 1</div>
+          <div class="level-name" style="color:var(--teal-dark)">Explorador/a</div>
+          <div class="level-desc" style="color:var(--teal-dark)">Complete beginners. Discovering the language through play, songs, and movement.</div>
+        </div>
+        <div class="level-card" style="background:var(--blue-pale)">
+          <div class="level-num" style="color:var(--blue)">Level 2</div>
+          <div class="level-name" style="color:var(--blue-dark)">Viajero/a</div>
+          <div class="level-desc" style="color:var(--blue-dark)">Building momentum. Forming sentences, holding conversations, growing confidence.</div>
+        </div>
+        <div class="level-card" style="background:var(--purple-pale)">
+          <div class="level-num" style="color:var(--purple)">Level 3</div>
+          <div class="level-name" style="color:var(--purple-dark)">Guía</div>
+          <div class="level-desc" style="color:var(--purple-dark)">Intermediate + heritage speakers. Navigating independently, supporting peers.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section style="max-width:1200px;margin:0 auto">
+    <span class="section-label">Why it works</span>
+    <h2 class="section-title">Spanish that <em>feels natural</em></h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🎵</div>
+        <h3>Music + movement</h3>
+        <p>Vocabulary learned through the body sticks longer than vocabulary drilled at a desk. Every class includes songs, chants, and physical games.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🎨</div>
+        <h3>Take-home crafts</h3>
+        <p>Every session ends with something kids made — a coloring sheet, a mini-book, a postcard. Parents see the learning. Kids feel the pride.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💪</div>
+        <h3>Confidence first</h3>
+        <p>No one is put on the spot. Call-and-response, pair work, and group games let every child participate at their own pace.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🌎</div>
+        <h3>Culturally rich</h3>
+        <p>Language is woven into culture. From Las Escondidas to market roleplay, kids connect Spanish to real moments in the world.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Sarita Baker</div>
+      <div class="footer-tagline">Spanish Enrichment · North Bay, CA</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-contact">sarita.michelle@pm.me · 650-374-7249</div>
+      <div class="footer-legal">© 2026 Sarita Baker. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════ ABOUT ════════════ -->
+<div id="page-about" class="page">
+
+  <div class="about-hero">
+    <img src="Sarita_headshot.jpeg" alt="Sarita Baker" style="width:100%;max-width:380px;border-radius:24px;object-fit:cover;aspect-ratio:3/4;box-shadow:0 20px 60px rgba(0,0,0,0.12);">
+    <div class="about-content">
+      <span class="section-label">About Sarita</span>
+      <h1>Learning &amp; development<br><em>professional.</em><br>Spanish educator.</h1>
+      <p>I'm Sarita Baker — a learning and development professional with over 10 years of experience designing engaging, learner-centered programs for children and adults.</p>
+      <p>I came to Spanish enrichment through a deep belief that language learning should be joyful, not stressful. My background in instructional design, curriculum development, and child-centered facilitation shapes every class I teach.</p>
+      <p>I bring a warm, play-based approach to instruction with a strong emphasis on confidence-building, curiosity, and relationship-centered learning. As a parent, I'm especially attuned to the developmental needs of young learners.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-num">7</span>
+          <span class="stat-label">Weeks per program</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">12</span>
+          <span class="stat-label">Max students per class</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">Years in L&amp;D</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="philosophy">
+    <h2>My teaching philosophy</h2>
+    <div class="philosophy-grid">
+      <div class="phil-card">
+        <h3>Joy before correctness</h3>
+        <p>A child who is laughing and trying will outlearn a child who is silent and afraid of being wrong. I create environments where mistakes are part of the fun.</p>
+      </div>
+      <div class="phil-card">
+        <h3>The body is the classroom</h3>
+        <p>Vocabulary that moves through the body — through dance, gesture, game — sticks far longer than vocabulary that sits in a workbook.</p>
+      </div>
+      <div class="phil-card">
+        <h3>Every learner has a door</h3>
+        <p>Some kids talk first. Some draw first. Some need to watch before they try. I design for all of them — so every child has a way in.</p>
+      </div>
+      <div class="phil-card">
+        <h3>Language is culture</h3>
+        <p>Spanish isn't just vocabulary lists. It's Las Escondidas at the park, ordering at a taco stand, greeting an abuela. Context makes it real.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Sarita Baker</div>
+      <div class="footer-tagline">Spanish Enrichment · North Bay, CA</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-contact">sarita.michelle@pm.me · 650-374-7249</div>
+      <div class="footer-legal">© 2026 Sarita Baker. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════ PROGRAMS ════════════ -->
+<div id="page-programs" class="page">
+
+  <div class="programs-hero">
+    <span class="section-label">Enrichment programs</span>
+    <h1 class="section-title">Seven weeks.<br><em>A foundation for life.</em></h1>
+    <p class="section-sub">Structured, themed, play-based programs designed for school-age kids. Two tracks — one for our youngest learners, one for early elementary.</p>
+  </div>
+
+  <div style="padding:0 max(32px,5vw) 80px">
+
+    <div class="program-block">
+      <div class="program-header">
+        <div>
+          <div class="program-badge" style="background:var(--teal-pale);color:var(--teal-dark);margin-bottom:12px">Explorador Level</div>
+          <h2>TK / Kindergarten</h2>
+          <p>Complete beginners ages 4–6. Play-based, movement-heavy, zero writing pressure. Every class ends with a take-home craft that parents love and kids are proud of.</p>
+        </div>
+        <button class="btn btn-primary" onclick="showPage('contact')" style="white-space:nowrap;flex-shrink:0">Enroll now</button>
+      </div>
+      <div class="program-body">
+        <div class="program-col">
+          <h3>Program details</h3>
+          <ul>
+            <li>60 minutes per session</li>
+            <li>7 weeks · Once weekly</li>
+            <li>Max 12 students</li>
+            <li>In-person, after school</li>
+            <li>Take-home craft each week</li>
+          </ul>
+        </div>
+        <div class="program-col">
+          <h3>What they'll learn</h3>
+          <ul>
+            <li>Greetings + introductions</li>
+            <li>Colors + numbers 1–10</li>
+            <li>Everyday animals</li>
+            <li>Feelings + emotions</li>
+            <li>Body parts</li>
+            <li>Simple sentences</li>
+          </ul>
+        </div>
+        <div class="program-col">
+          <h3>Teaching approach</h3>
+          <ul>
+            <li>Songs + chants</li>
+            <li>Movement games</li>
+            <li>Call-and-response</li>
+            <li>Art + craft projects</li>
+            <li>Sensory activities</li>
+            <li>Story time</li>
+          </ul>
+        </div>
+      </div>
+      <div class="week-grid">
+        <div class="week-item"><div class="wk">Wk 1</div><div class="theme">Greetings + Colors</div></div>
+        <div class="week-item"><div class="wk">Wk 2</div><div class="theme">Numbers + Animals</div></div>
+        <div class="week-item"><div class="wk">Wk 3</div><div class="theme">Animals + Sentences</div></div>
+        <div class="week-item"><div class="wk">Wk 4</div><div class="theme">Feelings</div></div>
+        <div class="week-item"><div class="wk">Wk 5</div><div class="theme">Body Parts</div></div>
+        <div class="week-item"><div class="wk">Wk 6</div><div class="theme">Review + Stations</div></div>
+        <div class="week-item" style="background:var(--amber-pale)"><div class="wk" style="color:var(--amber)">Wk 7</div><div class="theme" style="color:#854F0B">¡La Fiesta!</div></div>
+      </div>
+    </div>
+
+    <div class="program-block">
+      <div class="program-header">
+        <div>
+          <div class="program-badge" style="background:var(--blue-pale);color:var(--blue-dark);margin-bottom:12px">Viajero Level</div>
+          <h2>1st – 3rd Grade</h2>
+          <p>Emerging learners ages 6–9. More sentences, more partner work, more independence. Includes cultural immersion, travel roleplay, and a culminating project.</p>
+        </div>
+        <button class="btn btn-primary" onclick="showPage('contact')" style="white-space:nowrap;flex-shrink:0">Enroll now</button>
+      </div>
+      <div class="program-body">
+        <div class="program-col">
+          <h3>Program details</h3>
+          <ul>
+            <li>60 minutes per session</li>
+            <li>7 weeks · Once weekly</li>
+            <li>Max 12 students</li>
+            <li>In-person, after school</li>
+            <li>Activity stations in Week 6</li>
+          </ul>
+        </div>
+        <div class="program-col">
+          <h3>What they'll learn</h3>
+          <ul>
+            <li>Full sentences + questions</li>
+            <li>Animals + feelings + colors</li>
+            <li>Numbers to 20</li>
+            <li>Travel vocabulary</li>
+            <li>Sea creatures</li>
+            <li>Formal vs. informal greetings</li>
+          </ul>
+        </div>
+        <div class="program-col">
+          <h3>Teaching approach</h3>
+          <ul>
+            <li>Partner + group speaking</li>
+            <li>Roleplay + scenario cards</li>
+            <li>Activity stations</li>
+            <li>Cultural context</li>
+            <li>Writing + labeling</li>
+            <li>Outdoor games</li>
+          </ul>
+        </div>
+      </div>
+      <div class="week-grid">
+        <div class="week-item" style="background:var(--blue-pale)"><div class="wk" style="color:var(--blue)">Wk 1</div><div class="theme" style="color:var(--blue-dark)">Greetings + Colors</div></div>
+        <div class="week-item" style="background:var(--blue-pale)"><div class="wk" style="color:var(--blue)">Wk 2</div><div class="theme" style="color:var(--blue-dark)">Numbers + Animals</div></div>
+        <div class="week-item" style="background:var(--blue-pale)"><div class="wk" style="color:var(--blue)">Wk 3</div><div class="theme" style="color:var(--blue-dark)">Feelings</div></div>
+        <div class="week-item" style="background:var(--blue-pale)"><div class="wk" style="color:var(--blue)">Wk 4</div><div class="theme" style="color:var(--blue-dark)">Body Parts</div></div>
+        <div class="week-item" style="background:var(--blue-pale)"><div class="wk" style="color:var(--blue)">Wk 5</div><div class="theme" style="color:var(--blue-dark)">Stations Day</div></div>
+        <div class="week-item" style="background:var(--blue-pale)"><div class="wk" style="color:var(--blue)">Wk 6</div><div class="theme" style="color:var(--blue-dark)">¡Vamos a México!</div></div>
+        <div class="week-item" style="background:var(--amber-pale)"><div class="wk" style="color:var(--amber)">Wk 7</div><div class="theme" style="color:#854F0B">¡La Fiesta!</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Sarita Baker</div>
+      <div class="footer-tagline">Spanish Enrichment · North Bay, CA</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-contact">sarita.michelle@pm.me · 650-374-7249</div>
+      <div class="footer-legal">© 2026 Sarita Baker. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════ TUTORING ════════════ -->
+<div id="page-tutoring" class="page">
+
+  <div class="tutoring-hero">
+    <span class="section-label">Private tutoring</span>
+    <h1 class="section-title">Your child.<br><em>Their pace. Their path.</em></h1>
+    <p class="section-sub">Private and small group sessions tailored to exactly where your child is — whether they're a complete beginner or a heritage speaker ready to go deeper.</p>
+  </div>
+
+  <div style="padding:0 max(32px,5vw) 60px">
+    <div class="pricing-grid">
+      <div class="pricing-card featured">
+        <div class="featured-badge">Most popular</div>
+        <div class="pricing-title">Private 1-on-1</div>
+        <div class="pricing-price">$60<span>/session</span></div>
+        <div class="pricing-sub">45–60 minute sessions</div>
+        <ul class="pricing-features">
+          <li>Fully personalized curriculum</li>
+          <li>Flexible scheduling</li>
+          <li>In-person or virtual via Zoom</li>
+          <li>Weekly progress notes</li>
+          <li>Monthly package available ($220/mo)</li>
+        </ul>
+        <div class="pricing-btn">
+          <button class="btn btn-primary" onclick="showPage('contact')" style="width:100%;justify-content:center">Book a session</button>
+        </div>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-title">Small Group</div>
+        <div class="pricing-price">$35<span>/student</span></div>
+        <div class="pricing-sub">2–4 students · 45–60 minutes</div>
+        <ul class="pricing-features">
+          <li>Social, fun, and affordable</li>
+          <li>Great for friends or siblings</li>
+          <li>In-person or virtual</li>
+          <li>Flexible scheduling</li>
+          <li>Monthly package ($125/mo)</li>
+        </ul>
+        <div class="pricing-btn">
+          <button class="btn btn-outline" onclick="showPage('contact')" style="width:100%;justify-content:center">Inquire about groups</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="max-width:900px;margin:60px auto 0">
+      <span class="section-label" style="display:block;text-align:center">How it works</span>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Reach out</h3>
+          <p>Send a message with your child's age and any Spanish background they have.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Quick chat</h3>
+          <p>We'll connect briefly to talk about goals, scheduling, and the right level.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>First session</h3>
+          <p>Low-pressure intro class — we play, explore, and find your child's starting point.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Keep going</h3>
+          <p>Weekly or bi-weekly sessions, booked by the month. Cancel anytime.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Sarita Baker</div>
+      <div class="footer-tagline">Spanish Enrichment · North Bay, CA</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-contact">sarita.michelle@pm.me · 650-374-7249</div>
+      <div class="footer-legal">© 2026 Sarita Baker. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════ CONTACT ════════════ -->
+<div id="page-contact" class="page">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <span class="section-label">Get in touch</span>
+      <h1>Let's find the right<br><em>fit for your child.</em></h1>
+      <p>Whether you're interested in an enrichment program, private tutoring, or just want to learn more — send a message and I'll get back to you within 24 hours.</p>
+
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <a href="mailto:sarita.michelle@pm.me">sarita.michelle@pm.me</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📱</div>
+        <a href="tel:6503747249">650-374-7249</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <span>Santa Rosa, CA · Sonoma County · Also available via Zoom</span>
+      </div>
+
+      <div class="survey-cta">
+        <span style="font-size:20px">⭐</span>
+        <p>Already in the program? <a href="https://form.jotform.com/261315054418047" target="_blank">Share your feedback</a> — it helps me build better programs for every family.</p>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div id="contact-form-inner">
+        <h2 style="font-family:var(--sans);font-size:24px;color:var(--text);margin-bottom:24px">Send a message</h2>
+        <div class="form-group">
+          <label>Your name</label>
+          <input type="text" placeholder="Jane Smith" id="f-name">
+        </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" placeholder="jane@email.com" id="f-email">
+        </div>
+        <div class="form-group">
+          <label>Child's age + grade</label>
+          <input type="text" placeholder="e.g. 6 years old, Kindergarten" id="f-child">
+        </div>
+        <div class="form-group">
+          <label>I'm interested in...</label>
+          <select id="f-interest">
+            <option value="">Select an option</option>
+            <option>After-school enrichment program</option>
+            <option>Private 1-on-1 tutoring</option>
+            <option>Small group tutoring</option>
+            <option>Just learning more</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Anything else?</label>
+          <textarea placeholder="Any Spanish background, questions, scheduling preferences..." id="f-message"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Send message →</button>
+      </div>
+      <div class="form-success" id="form-success">
+        <div style="font-size:48px;margin-bottom:16px">🌟</div>
+        <h3>¡Gracias!</h3>
+        <p>I'll be in touch within 24 hours.<br>¡Hasta pronto!</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Sarita Baker</div>
+      <div class="footer-tagline">Spanish Enrichment · North Bay, CA</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-contact">sarita.michelle@pm.me · 650-374-7249</div>
+      <div class="footer-legal">© 2026 Sarita Baker. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function submitForm() {
+  const name = document.getElementById('f-name').value;
+  const email = document.getElementById('f-email').value;
+  if (!name || !email) {
+    alert('Please fill in your name and email to send a message.');
+    return;
+  }
+  document.getElementById('contact-form-inner').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+</script>
+</body>
+</html>
